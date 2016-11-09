@@ -31,9 +31,10 @@ namespace doctor_m
         private void btnOK_Click(object sender, EventArgs e)
         {
             frmPatientManagement frm = new frmPatientManagement();
+            bool fail = false;
             frm.MdiParent = MdiParent;
             load_table();
-            if(appointments.Rows.Count == 1)
+            if (appointments.Rows.Count == 1)
             {
                 if (appointments.Rows[0].ItemArray[1].ToString() == txtPass.Text)
                 {
@@ -41,9 +42,13 @@ namespace doctor_m
                     username = txtName.Text;
                     txtName.Clear();
                     txtPass.Clear();
-                }                    
+                }
+                else
+                    fail = true;
             }
-            if (Focused)
+            else
+                fail = true;
+            if (fail)
             {
                 MessageBox.Show("Incorrect credentials submitted", "Login failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtPass.Clear();
